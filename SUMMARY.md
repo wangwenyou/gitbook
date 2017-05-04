@@ -1,8 +1,8 @@
 # Summary
 
-* [开发规范](chapter1.md)
 * [产品简介](product.md)
   * [产品技术栈](product/chan-pin-ji-zhu-zhan.md)
+* [开发规范](chapter1.md)
 * [CTP技术平台](ctp.md)
   * [产品安装部署](ctp/deployment.md)
   * [开发准备](ctp/envirment.md)
