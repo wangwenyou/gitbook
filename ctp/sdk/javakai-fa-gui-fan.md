@@ -1,6 +1,6 @@
-## 2.1. 命名规范
+## 2.1. 命名规范
 
-### 2.1.1. Package命名 \[NAMING.PKG-2\]
+### 2.1.1. Package命名 \[NAMING.PKG-2\]
 
 Package命名 \[NAMING.PKG-2\]
 
@@ -24,7 +24,7 @@ package
  com.seeyon.apps.meeting;
 ```
 
-### 2.1.2. Class命名 \[NAMING.NCL-2\]
+### 2.1.2. Class命名 \[NAMING.NCL-2\]
 
 描述：
 
@@ -47,7 +47,7 @@ implements
 }
 ```
 
-### 2.1.3. Interface命名 \[NAMING.NITF-2\]
+### 2.1.3. Interface命名 \[NAMING.NITF-2\]
 
 描述：
 
@@ -62,7 +62,7 @@ interface
 }
 ```
 
-### 2.1.4. Exception Class命名 \[NAMING.NE-2\]
+### 2.1.4. Exception Class命名 \[NAMING.NE-2\]
 
 描述：
 
@@ -79,7 +79,7 @@ extends
 }
 ```
 
-### 2.1.5. Unit Test Class命名 \[NAMING.NE-2\]
+### 2.1.5. Unit Test Class命名 \[NAMING.NE-2\]
 
 描述：
 
@@ -96,7 +96,7 @@ extends
 }
 ```
 
-### 2.1.6. Enum type命名 \[NAMING.NENUM-2\]
+### 2.1.6. Enum type命名 \[NAMING.NENUM-2\]
 
 描述：
 
@@ -111,7 +111,7 @@ private
 };
 ```
 
-### 2.1.7. Methods命名 \[NAMING.NMP-2\]
+### 2.1.7. Methods命名 \[NAMING.NMP-2\]
 
 描述：
 
@@ -123,16 +123,16 @@ Method命名首字母必须小写
 public
 class
  NMFixed {
-    
+
 void
- method () {  
+ method () {  
 // FIXED
 
     }
 }
 ```
 
-### 2.1.8. Local variables命名 \[NAMING.NLV-2\]
+### 2.1.8. Local variables命名 \[NAMING.NLV-2\]
 
 描述：
 
@@ -148,7 +148,7 @@ int
 ;
 ```
 
-### 2.1.9. 常量命名 \[NAMING.USF-2\]
+### 2.1.9. 常量命名 \[NAMING.USF-2\]
 
 描述：
 
@@ -171,7 +171,7 @@ final
  Logger LOGGER;
 ```
 
-### 2.1.10. 类名禁止使用java内置类名 \[NAMING.DJLO-2\]
+### 2.1.10. 类名禁止使用java内置类名 \[NAMING.DJLO-2\]
 
 描述：
 
@@ -186,7 +186,7 @@ class
 }
 ```
 
-### 2.1.11. 标示符禁止使用java关键字 \[NAMING.DJLO-2\]
+### 2.1.11. 标示符禁止使用java关键字 \[NAMING.DJLO-2\]
 
 描述：
 
@@ -203,7 +203,7 @@ int
  assert;
 ```
 
-### 2.1.12. 禁止使用sun预留包名 \[NAMING.RPKG-2\]
+### 2.1.12. 禁止使用sun预留包名 \[NAMING.RPKG-2\]
 
 描述：
 
@@ -216,11 +216,11 @@ package
  java.rules.naming;
 ```
 
-### 2.1.13. 禁止仅通过大小写区分变量 \[NAMING.UUVN-4\]
+### 2.1.13. 禁止仅通过大小写区分变量 \[NAMING.UUVN-4\]
 
 描述：
 
- 禁止仅通过大小写区分变量
+禁止仅通过大小写区分变量
 
 错误示例：
 
@@ -236,9 +236,9 @@ int
 ;
 ```
 
-## 2.2. 注释规范
+## 2.2. 注释规范
 
-### 2.2.1. java文件头注释 \[FORMAT.MCH-2\]
+### 2.2.1. java文件头注释 \[FORMAT.MCH-2\]
 
 描述：
 
@@ -259,18 +259,18 @@ package
  xx.xx.xx;
 
 import
- xx.xx; 
+ xx.xx;
 ```
 
-### 2.2.2. java类注释 \[JAVADOC.PJDC-2\]
+### 2.2.2. java类注释 \[JAVADOC.PJDC-2\]
 
 描述：
 
 所有java类需按以下格式添加类注释：
 
-```
+```java
 /**
- * 
+ * 
 <
 p
 >
@@ -279,7 +279,7 @@ Title: 应用模块名称
 /p
 >
 
- * 
+ * 
 <
 p
 >
@@ -288,7 +288,7 @@ Description: 代码描述
 /p
 >
 
- * 
+ * 
 <
 p
 >
@@ -297,7 +297,7 @@ Copyright: Copyright (c) 2012
 /p
 >
 
- * 
+ * 
 <
 p
 >
@@ -306,32 +306,32 @@ Company: seeyon.com
 /p
 >
 
- */
+ */
 public
 final
 class
  MyClass
 ```
 
-### 2.2.3. 方法注释 \[JAVADOC.PJDM-2\]
+### 2.2.3. 方法注释 \[JAVADOC.PJDM-2\]
 
 描述：
 
 所有方法需按以下格式添加方法注释，继承的方法可以使用’@see’、’ @inheritDoc’ tag：
 
-```
+```java
 /**
-  * Executes a mapped SQL SELECT statement that returns data to populate
-  * a number of result objects within a certain range.
-  *
-  * @param id The name of the statement to execute.
-  * @param skip The number of results to ignore.
-  * @param max The maximum number of results to return.
-  * @return A List of result objects.
-  * @throws java.sql.SQLException If an error occurs.
-  */
+  * Executes a mapped SQL SELECT statement that returns data to populate
+  * a number of result objects within a certain range.
+  *
+  * @param id The name of the statement to execute.
+  * @param skip The number of results to ignore.
+  * @param max The maximum number of results to return.
+  * @return A List of result objects.
+  * @throws java.sql.SQLException If an error occurs.
+  */
 
-  List queryForList(String id, 
+  List queryForList(String id, 
 int
  skip, 
 int
@@ -342,29 +342,29 @@ throws
 
 相关校验点：
 
-> \[JAVADOC.DPMT-2\]                避免无用的javadoc tag
+> \[JAVADOC.DPMT-2\]                避免无用的javadoc tag
 >
-> \[JAVADOC.MDJT-2\]                注释内容要有意义
+> \[JAVADOC.MDJT-2\]                注释内容要有意义
 >
-> \[JAVADOC.PARAM-2\]        每个param都要有'@param' tag
+> \[JAVADOC.PARAM-2\]        每个param都要有'@param' tag
 >
-> \[JAVADOC.MRDC-2\]                有返回值的方法必须使用'@return' tag
+> \[JAVADOC.MRDC-2\]                有返回值的方法必须使用'@return' tag
 >
-> \[JAVADOC.THROW-2\]        有异常抛出的方法必须使用'@throws' 或 '@exception' tag
+> \[JAVADOC.THROW-2\]        有异常抛出的方法必须使用'@throws' 或 '@exception' tag
 >
-> \[JAVADOC.VMCR-2\]                无返回值的方法不要有'@return' tag
+> \[JAVADOC.VMCR-2\]                无返回值的方法不要有'@return' tag
 >
-> \[JAVADOC.BT-4\]                不允许使用javadoc中未定义的'@' tag
+> \[JAVADOC.BT-4\]                不允许使用javadoc中未定义的'@' tag
 
-## 2.3. 格式规范
+## 2.3. 格式规范
 
-### 2.3.1. 代码长度限制 \[FORMAT.LL-2\]
+### 2.3.1. 代码长度限制 \[FORMAT.LL-2\]
 
 描述：
 
 每行代码长度不能超过120个字符
 
-### 2.3.2. 每个声明占用一个代码行 \[FORMAT.OSPL-2\]
+### 2.3.2. 每个声明占用一个代码行 \[FORMAT.OSPL-2\]
 
 描述：
 
@@ -389,7 +389,7 @@ return
  i;
 ```
 
-### 2.3.3. 使用括号分隔复杂表达式 \[FORMAT.APAREN-3\]
+### 2.3.3. 使用括号分隔复杂表达式 \[FORMAT.APAREN-3\]
 
 描述：
 
@@ -427,9 +427,9 @@ if
 ))
 ```
 
-### 2.3.4. 避免过于复杂的判断表达式
+### 2.3.4. 避免过于复杂的判断表达式
 
-```
+```java
 if
  ( workTimeSpecials.size() 
 >
@@ -446,7 +446,7 @@ if
 &
 &
  !isWorkDay) {
-        
+
 return
 ;
 }
@@ -454,13 +454,13 @@ return
 
 遇到这样的表达式，请使用Extract Local Variable提取为意义明确的变量。
 
-### 2.3.5. 代码缩进使用空格代替tab \[FORMAT.DUT-3\]
+### 2.3.5. 代码缩进使用空格代替tab \[FORMAT.DUT-3\]
 
 描述：
 
 代码缩进使用空格代替tab保证代码在非windows系统环境下的可读性
 
-### 2.3.6. 数组声明格式 \[FORMAT.IAD-3\]
+### 2.3.6. 数组声明格式 \[FORMAT.IAD-3\]
 
 描述：
 
@@ -480,7 +480,7 @@ private
  String [] str1, str2, str3;
 ```
 
-### 2.3.7. 正确使用equals
+### 2.3.7. 正确使用equals
 
 错误示例：
 
@@ -498,7 +498,7 @@ str.equals(
 // 规避str为null时的空指针异常
 ```
 
-### 2.3.8. 避免不必要的小括号 \[FORMAT.UP-3\]
+### 2.3.8. 避免不必要的小括号 \[FORMAT.UP-3\]
 
 描述：
 
@@ -512,13 +512,13 @@ i = (i +
 );
 ```
 
-### 2.3.9. 与文件同名的类应放在所有类声明的最前面 \[FORMAT.FCN-4\]
+### 2.3.9. 与文件同名的类应放在所有类声明的最前面 \[FORMAT.FCN-4\]
 
 描述：
 
 如果一个文件中定义了多个类，那么与文件同名的类作为主类应放在代码的最前面
 
-### 2.3.10. 声明中修饰符的使用应遵循正确顺序 \[FORMAT.MO-4\]
+### 2.3.10. 声明中修饰符的使用应遵循正确顺序 \[FORMAT.MO-4\]
 
 描述：
 
