@@ -312,58 +312,17 @@ message必须填写,且内容恰当
 
 必须return Response，而不是具体的POJO对象；不允许自己进行JSON的toString，直接调用**ok**或者**error**方法由框架进行JSON转换。
 
-```
-// 错误
-public
-V3xOrgMember
-getMemberByLoginName
-(
-@QueryParam
-(
-"loginName"
-)
-String
-loginName
-)
-throws
-Exception
-{
-return
-getOrgManager
-().
-getMemberByLoginName
-(
-decode
-(
-loginName
-));
+```java
+      // 错误
+public V3xOrgMember getMemberByLoginName(
+		@QueryParam("loginName") String loginName) throws Exception {
+	return getOrgManager().getMemberByLoginName(decode(loginName));
 }
-// 正确
-public
-Response
-getMemberByLoginName
-(
-@QueryParam
-(
-"loginName"
-)
-String
-loginName
-)
-throws
-Exception
-{
-return
-ok
-(
-getOrgManager
-().
-getMemberByLoginName
-(
-decode
-(
-loginName
-)));
+
+      // 正确
+public Response getMemberByLoginName(
+		@QueryParam("loginName") String loginName) throws Exception {
+	return ok(getOrgManager().getMemberByLoginName(decode(loginName)));
 }
 ```
 
@@ -371,7 +330,7 @@ loginName
 
 **正常返回值**
 
-```
+```js
 {
   code: 0,
   data: {
@@ -382,7 +341,7 @@ loginName
 }
 ```
 
-```
+```js
 {
   code : 0,
   data: [
