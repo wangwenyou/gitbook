@@ -445,83 +445,23 @@ loginName
 
 因为所有的REST实现都不受Spring管理，所以对于Spring bean不能采取依赖注入方式，请按照下面的方式进行处理
 
-```
-public
-class
-MemberResource
-extends
-BaseResource
-{
-private
-OrgManager
-orgManager
-;
-public
-OrgManager
-getOrgManager
-()
-{
-if
-(
-orgManager
-==
-null
-)
-{
-orgManager
-=
-(
-OrgManager
-)
-AppContext
-.
-getBean
-(
-"orgManager"
-);
-}
-return
-orgManager
-;
-}
-@GET
-@Path
-(
-"{id}"
-)
-@Produces
-(
-MediaType
-.
-APPLICATION_JSON
-)
-@RestInterfaceAnnotation
-public
-Response
-get
-(
-@PathParam
-(
-"id"
-)
-long
-id
-)
-throws
-Exception
-{
-return
-ok
-(
-getOrgManager
-().
-getEntityById
-(
-getActualClass
-(),
-id
-));
-}
+```java
+public class MemberResource extends BaseResource {
+	private OrgManager orgManager;
+	public OrgManager getOrgManager() {
+		if (orgManager == null) {
+			orgManager = (OrgManager) AppContext.getBean("orgManager");
+		}
+		return orgManager;
+	}
+
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@RestInterfaceAnnotation
+	public Response get(@PathParam("id") long id) throws Exception {
+		return ok(getOrgManager().getEntityById(getActualClass(), id));
+	}
 }
 ```
 
@@ -533,133 +473,46 @@ id
 
 ```
 {
-"orgAccountId"
-:
--
-7580270040522800906
-,
-"id"
-:
--
-4133790465478605204
-,
-"name"
-:
-"自动1"
-,
-"code"
-:
-"5"
-,
-"createTime"
-:
-1429064089000
-,
-"updateTime"
-:
-1429064089000
-,
-"sortId"
-:
-0
-,
-"isDeleted"
-:
-false
-,
-"enabled"
-:
-true
-,
-"status"
-:
-1
-,
-"description"
-:
-""
-,
-"orgLevelId"
-:
-8562916345585944089
-,
-"orgPostId"
-:
--
-2379980414295520995
-,
-"orgDepartmentId"
-:
--
-5380398112991065519
-,
-"password"
-:
-"123456"
-,
-......
+  "orgAccountId" : -7580270040522800906,
+  "id" : -4133790465478605204,
+  "name" : "自动1",
+  "code" : "5",
+  "createTime" : 1429064089000,
+  "updateTime" : 1429064089000,
+  "sortId" : 0,
+  "isDeleted" : false,
+  "enabled" : true,
+  "status" : 1,
+  "description" : "",
+  "orgLevelId" : 8562916345585944089,
+  "orgPostId" : -2379980414295520995,
+  "orgDepartmentId" : -5380398112991065519,
+  "password" : "123456" ,
+  ......
 }
 ```
 
 不希望输出V3xOrgMember的password属性。
 
 * 侵入式修改，在需要过滤的域的get方法上加@JsonIgnore注解。
-  ```
-  public
-  class
-  V3xOrgMember
-  @JsonIgnore
-  public
-  String
-  getPassword
-  ()
-  {
-  }
+  ```java
+  public class V3xOrgMember
+      @JsonIgnore
+      public String getPassword() {
+      }
   }
   ```
 * 非侵入式修改
 
-  ```
+  ```java
   // 定义一个空的类，增加注解列出要过滤的class
-  @JsonIgnoreProperties
-  (
-  value
-  =
-  {
-  "v3xOrgPrincipal"
-  ,
-  "password"
-  })
-  public
-  class
-  MemberWriteFilter
-  {
+  @JsonIgnoreProperties(value = { "v3xOrgPrincipal", "password" })
+  public class MemberWriteFilter {
+
   }
+
   // 初始化时调用注册Mixin
-  com
-  .
-  seeyon
-  .
-  ctp
-  .
-  rest
-  .
-  util
-  .
-  MapperFactory
-  .
-  getInstance
-  ().
-  addMixInAnnotations
-  (
-  V3xOrgMember
-  .
-  class
-  ,
-  MemberWriteFilter
-  .
-  class
-  );
+  com.seeyon.ctp.rest.util.MapperFactory.getInstance().addMixInAnnotations(V3xOrgMember.class, MemberWriteFilter.class);
   ```
 
   所有的V3xOrgMember转为JSON时将不输出过滤的属性列表
@@ -669,105 +522,16 @@ true
 需要在输出的Bean基础上增加属性时使用，比如输出V3xOrgMember时输出所在单位的名称orgAccountName
 
 ```
-com
-.
-seeyon
-.
-ctp
-.
-rest
-.
-util
-.
-MapperFactory
-.
-getInstance
-().
-register
-(
-V3xOrgMember
-.
-class
-,
-new
-BeanSerializerFactory
-.
-Builder
-()
-{
-public
-Map
-addFields
-(
-Object
-bean
-)
-{
-Map
-<
-String
-,
-String
->
-data
-=
-new
-HashMap
-<
-String
-,
-String
->
-();
-V3xOrgMember
-member
-=
-(
-V3xOrgMember
-)
-bean
-;
-long
-orgAccountId
-=
-member
-.
-getOrgAccountId
-();
-data
-.
-put
-(
-"orgAccountName"
-,
-orgManager
-.
-getAccountById
-(
-orgAccountId
-).
-getName
-());
-data
-.
-put
-(
-"orgDepartmentName"
-,
-balabala
-);
-data
-.
-put
-(
-"orgPostName"
-,
-balabala
-);
-return
-data
-;
-}
+com.seeyon.ctp.rest.util.MapperFactory.getInstance().register(V3xOrgMember.class,new BeanSerializerFactory.Builder() {
+    public Map addFields(Object bean) {
+        Map<String,String> data = new HashMap<String,String>();
+        V3xOrgMember member = (V3xOrgMember) bean;
+        long orgAccountId = member.getOrgAccountId();
+        data.put("orgAccountName",orgManager.getAccountById(orgAccountId).getName());
+        data.put("orgDepartmentName",balabala);
+        data.put("orgPostName",balabala);
+        return data;
+    }
 });
 ```
 
@@ -840,70 +604,15 @@ Content-Length: 39
 
 对于实体返回，建议同时支持JSON和XML，在Resource的Class或方法加入如下声明
 
-```
+```java
 @GET
-@Path
-(
-"{userName}/{password}"
-)
-@Produces
-({
-MediaType
-.
-APPLICATION_JSON
-,
-MediaType
-.
-APPLICATION_XML
-})
-public
-Response
-getToken
-(
-@PathParam
-(
-"userName"
-)
-String
-userName
-,
-@PathParam
-(
-"password"
-)
-String
-password
-,
-@QueryParam
-(
-"loginName"
-)
-String
-loginName
-,
-@QueryParam
-(
-"userAgentFrom"
-)
-String
-userAgentFrom
-)
-throws
-Exception
-{
-return
-ok
-(
-_getToken
-(
-userName
-,
-password
-,
-loginName
-,
-userAgentFrom
-));
+@Path("{userName}/{password}")
+@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+public Response getToken(@PathParam("userName") String userName,
+    @PathParam("password") String password,
+    @QueryParam("loginName") String loginName,
+    @QueryParam("userAgentFrom") String userAgentFrom) throws Exception {
+    return ok(_getToken(userName, password,loginName,userAgentFrom));
 }
 ```
 
@@ -911,73 +620,16 @@ ok方法会根据请求header的accept自动返回json或xml。
 
 如果需要返回html和纯文本，可以新建一个方法，使用相同的Path
 
-```
+```java
 @GET
-@Path
-(
-"{userName}/{password}"
-)
-@Produces
-(
-MediaType
-.
-TEXT_PLAIN
-)
-public
-Response
-getTokenString
-(
-@PathParam
-(
-"userName"
-)
-String
-userName
-,
-@PathParam
-(
-"password"
-)
-String
-password
-,
-@QueryParam
-(
-"loginName"
-)
-String
-loginName
-,
-@QueryParam
-(
-"userAgentFrom"
-)
-String
-userAgentFrom
-)
-throws
-Exception
-{
-UserToken
-token
-=
-_getToken
-(
-userName
-,
-password
-,
-loginName
-,
-userAgentFrom
-);
-return
-ok
-(
-token
-.
-getId
-());
+@Path("{userName}/{password}")
+@Produces(MediaType.TEXT_PLAIN)
+public Response getTokenString(@PathParam("userName") String userName,
+    @PathParam("password") String password,
+    @QueryParam("loginName") String loginName,
+    @QueryParam("userAgentFrom") String userAgentFrom) throws Exception {
+    UserToken token = _getToken(userName, password,loginName,userAgentFrom);
+    return ok(token.getId());
 }
 ```
 
@@ -995,13 +647,8 @@ Host: 127.0.0.1
 
 ```
 {
-"bindingUser"
-:
-null
-,
-"id"
-:
-"a5ad648c-0a40-49b0-bedd-9fd7025313b5"
+  "bindingUser" : null,
+  "id" : "a5ad648c-0a40-49b0-bedd-9fd7025313b5"
 }
 ```
 
