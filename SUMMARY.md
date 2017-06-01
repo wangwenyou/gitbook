@@ -14,6 +14,7 @@
   * [SDK](ctp/sdk.md)
     * [后台开发规范](ctp/sdk/ctpbackendspec.md)
     * [Java编码规范](ctp/sdk/javakai-fa-gui-fan.md)
+    * [Rest开发规范](ctp/sdk/javakai-fa-gui-fan/restkai-fa-gui-fan.md)
   * [数据字典](ctp/dd.md)
   * [前端组件](ctp/frount.md)
   * [REST接口](ctp/restjie-kou.md)
