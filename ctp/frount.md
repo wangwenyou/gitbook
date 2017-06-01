@@ -52,11 +52,11 @@ $.selectPeople({
 | unallowedSelectEmptyGroup | - | true\|false不允许选择空的组、部门, 默认false | - |
 | showTeamType | - | "1,2,3" 需要显示的组类型1-个人,2-系统,3-项目, 默认null，表示所有 | - |
 
-| hiddenOtherMemberOfTeam |
+|  |
 | :--- |
 
 
-|  | - | true\|false 是否隐藏组下的外单人员，默认false | - |
+| hiddenOtherMemberOfTeam | - | true\|false 是否隐藏组下的外单人员，默认false | - |
 | :--- | :--- | :--- | :--- |
 | hiddenAccountIds | - | "1,2,3" 隐藏的单位，将不在单位下拉中出现 | - |
 | isCanSelectGroupAccount | - | true\|false 是否可以选择集团单位，默认true | - |
