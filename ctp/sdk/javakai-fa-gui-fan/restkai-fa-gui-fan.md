@@ -847,21 +847,8 @@ Locale.SIMPLIFIED_CHINESE
 JSSDK中缺省以浏览器的语言进行国际化，取不到浏览器语言时使用zh\_CN 如果需要强制指定，可以在最后一个参数中使用AcceptLanguage指定语言。
 
 ```
-$s
-.
-Token
-.
-getToken
-(
-'rest'
-,
-'123456'
-,
-''
-,{
-'AcceptLanguage'
-:
-'zh_CN'
+$s.Token.getToken('rest','123456','',{
+    'AcceptLanguage':'zh_CN'
 })
 ```
 
