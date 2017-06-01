@@ -447,21 +447,21 @@ loginName
 
 ```java
 public class MemberResource extends BaseResource {
-	private OrgManager orgManager;
-	public OrgManager getOrgManager() {
-		if (orgManager == null) {
-			orgManager = (OrgManager) AppContext.getBean("orgManager");
-		}
-		return orgManager;
-	}
+    private OrgManager orgManager;
+    public OrgManager getOrgManager() {
+        if (orgManager == null) {
+            orgManager = (OrgManager) AppContext.getBean("orgManager");
+        }
+        return orgManager;
+    }
 
-	@GET
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@RestInterfaceAnnotation
-	public Response get(@PathParam("id") long id) throws Exception {
-		return ok(getOrgManager().getEntityById(getActualClass(), id));
-	}
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RestInterfaceAnnotation
+    public Response get(@PathParam("id") long id) throws Exception {
+        return ok(getOrgManager().getEntityById(getActualClass(), id));
+    }
 }
 ```
 
