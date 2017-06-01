@@ -46,14 +46,8 @@
   ，查询内容参数使用QueryParams（仅允许在查询请求参数非常多的情况下，如参数数量大于5个，才可以使用post）
 * 缺省接受JSON格式的参数，输出JSON。
   ```
-  @Consumes
-  (
-  "application/json"
-  )
-  @Produces
-  (
-  "application/json"
-  )
+  @Consumes("application/json")
+  @Produces("application/json")
   ```
 * 使用Jackson进行JSON处理，缺省将Date输出为长整型值。 参数option.n\_a\_s=1时将数值输出为字符串\(Number as String\)，以避免在Javascript中解析长整型的精度问题。
 * 对象和方法命名语义需与内部保持一致，不允许自行创造。比如不要把Member叫做Person。
@@ -190,7 +184,7 @@ ApiDoc格式因其工具不稳定，废弃
 
 ### 示例
 
-```
+```java
 /**
  * 保存秀吧信息
  * URL show/showbar
@@ -198,9 +192,7 @@ ApiDoc格式因其工具不稳定，废弃
  * @date 2016-12-01
  * @param params 秀吧的参数
  * 
-<
-pre
->
+<pre>
 
  *    类型    名称            必填    备注
  *    Long    showbarId        Y    主题Id
@@ -217,15 +209,11 @@ pre
  *            All_group            全集团
  *    String    showbarAuth        Y    授权范围字符串
  * 
-<
-/pre
->
+</pre>
 
  * @return 返回对象com.seeyon.apps.show.po.ShowbarInfo
  * 
-<
-pre
->
+<pre>
 
  *     成功 {success:true,data:showBarData}
  *                 showBarData    来自于对象com.seeyon.apps.show.po.ShowbarInfo
@@ -249,41 +237,14 @@ pre
  *                        }
  *    失败 {success:false,msg:errorMessage}
  *
-<
-/pre
->
+</pre>
 
  * @throws BusinessException    出错信息
  */
 @POST
-@Path
-(
-"showbar"
-)
-@Consumes
-({
-MediaType
-.
-APPLICATION_XML
-,
-MediaType
-.
-APPLICATION_JSON
-})
-public
-Response
-saveShowbarInfo
-(
-Map
-<
-String
-,
-Object
->
-params
-)
-throws
-BusinessException
+@Path("showbar")
+@Consumes({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+public Response saveShowbarInfo(Map<String,Object> params)throws BusinessException
 ```
 
 ## Response定义
@@ -294,7 +255,7 @@ BusinessException
 
 **成功的请求**
 
-```
+```js
 {
   code: 0,
   data: 返回数据,
@@ -306,7 +267,7 @@ BusinessException
 
 **失败的请求**
 
-```
+```js
 {
   code: 1,
   message: 'error messges'
@@ -1055,22 +1016,7 @@ Host: 127.0.0.1
 返回
 
 ```
-<
-UserToken
->
-<
-bindingUser/
->
-<
-id
->
-55b69a17-b2be-4dfa-80ac-c3a211ec652d
-<
-/id
->
-<
-/UserToken
->
+<UserToken><bindingUser/><id>55b69a17-b2be-4dfa-80ac-c3a211ec652d</id></UserToken>
 ```
 
 请求
@@ -1107,40 +1053,8 @@ John,Doe,john.doe@hpe.com,John Doe,true,john.doe@hpe.com
 
 ```
 [
-{
-"name"
-:
-"Jane"
-,
-"address"
-:
-"London"
-,
-"email"
-:
-"janoe@gmail.com"
-,
-"age"
-:
-42
-},
-{
-"name"
-:
-"Joe"
-,
-"address"
-:
-"New york"
-,
-"email"
-:
-"joe@gmail.com"
-,
-"age"
-:
-28
-},
+    {"name": "Jane", "address": "London", "email": "janoe@gmail.com", "age": 42},
+    {"name": "Joe", "address": "New york", "email": "joe@gmail.com", "age": 28},
 ]
 ```
 
