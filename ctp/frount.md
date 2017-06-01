@@ -1,8 +1,4 @@
-
-
 **选人界面**
-
-
 
 框架目前提供了简单的选人界面包装，可以通过下面的HTML定义选人组件
 
@@ -24,8 +20,6 @@ $.selectPeople({
  }
 });
 ```
-
-支持的comp属性或$.selectPeople函数的params参数如下：
 
 支持的comp属性或$.selectPeople函数的params参数如下：
 
@@ -98,6 +92,4 @@ $.selectPeople({
 $\("\#spc1"\).comp\({value:'newval', text:'newtext'}\);
 
 将会取代之前comp属性中设置的value和text参数值
-
-
 
