@@ -36,7 +36,7 @@
 
 public  
    class  
-    CollaborationManagerImpl   
+    CollaborationManagerImpl  
    implements  
     CollaborationManager{
 
@@ -66,7 +66,7 @@ public
 
 public  
    class  
-    CollaborationManagerImpl   
+    CollaborationManagerImpl  
    implements  
     CollaborationManager{
 
