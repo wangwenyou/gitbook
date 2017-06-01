@@ -3,10 +3,10 @@
 * [产品简介](product.md)
   * [产品技术栈](product/chan-pin-ji-zhu-zhan.md)
 * [开发规范](chapter1.md)
-  * 数据库
-  * 插件
-  * 接口
-  * 前端UE
+  * [数据库](chapter1/shu-ju-ku.md)
+  * [插件](chapter1/cha-jian.md)
+  * [接口](chapter1/jie-kou.md)
+  * [前端UE](chapter1/qian-duan-ue.md)
 * [CTP技术平台](ctp.md)
   * [产品安装部署](ctp/deployment.md)
   * [开发准备](ctp/envirment.md)
