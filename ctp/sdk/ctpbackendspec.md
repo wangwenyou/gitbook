@@ -248,90 +248,30 @@ bean定义放在具体模块的工程，如`spring-news-api.xml`：
 
 > 新建、修改和删除不允许使用boolean或int作为返回值，原则上应该是void的
 
-```
-long
-id
-;
-String
-subject
-;
-NewsType
-type
-;
+```java
+long id;
+String subject;
+NewsType type;
 // 按Id取
-News
-aNews
-=
-api
-.
-get
-(
-id
-);
+News aNews = api.get(id);
 // 按某一特定的规则取，如果不会产生歧义，就不必加ByName、BySubject
-News
-aNews
-=
-api
-.
-get
-(
-subject
-);
+News aNews = api.get(subject);
 // 获取指定条件的列表
-List
-<
-News
->
-newsList
-=
-api
-.
-find
-(
-type
-);
+List<News> newsList = api.find(type);
 // 获取所有
-List
-<
-News
->
-all
-=
-api
-.
-findAll
-();
+List<News> all = api.findAll();
 ```
 
 ##### 日志
 
 日志使用我们封装的CtpLogFactory，变量名使用LOG
 
-```
-import
-org.apache.commons.logging.Log
-;
-import
-com.seeyon.ctp.common.log.CtpLogFactory
-;
-public
-class
-NewsApiImpl
-{
-private
-final
-Log
-LOG
-=
-CtpLogFactory
-.
-getLog
-(
-NewsApiImpl
-.
-class
-);
+```java
+import org.apache.commons.logging.Log;
+import com.seeyon.ctp.common.log.CtpLogFactory;
+
+public class NewsApiImpl {
+	private final Log LOG = CtpLogFactory.getLog(NewsApiImpl.class);
 }
 ```
 
@@ -345,34 +285,12 @@ class
 > 2. 参数对象不允许使用基础数据类型，必须使用其封装类作为参数类型。如参数需要传Integer类型的，不允许使用int。
 > 3. 接口中写明的参数在使用时都必须有用，不允许出现其中某个参数为特定值时，可以忽略另一个参数的情况。如有特殊的需求，建议拆分接口为多个。如findBulletinTypes\(int spaceType, long accountId\)方法，在spaceType为-1时，不管accountId为任何值，都会返回所有的公告板块列表。这样的接口就会产生使用上的歧义，建议增加一个接口findAllBulletinTypes\(\)取代这种情况。
 > 4. 8种基础数据类型的参数，使用封装类型
->    ```
+>    ```java
 >    // 正确
->    void
->    methodOk
->    (
->    Long
->    l
->    ,
->    Integer
->    i
->    ,
->    Boolean
->    b
->    ){
+>    void methodOk(Long l,Integer i,Boolean b){
 >    }
 >    // 错误
->    void
->    methodBad
->    (
->    long
->    l
->    ,
->    int
->    i
->    ,
->    boolean
->    b
->    ){
+>    void methodBad(long l,int i,boolean b){
 >    }
 >    ```
 
@@ -393,45 +311,19 @@ class
   ，参数名称必须为  
   **category**
 
-  ```
+  ```java
   // 正确定义
-  List
-  <
-  AppLog
-  >
-  getAllAppLogs
-  (
-  int
-  category
-  );
+  List<AppLog> getAllAppLogs(int category);
+
   // 错误定义
-  List
-  <
-  AppLog
-  >
-  getAllAppLogs
-  (
-  ApplicationCategoryEnum
-  appEnum
-  );
+  List<AppLog> getAllAppLogs(ApplicationCategoryEnum appEnum);
+
   // 正确调用
-  getAllAppLogs
-  (
-  ApplicationCategoryEnum
-  .
-  global
-  .
-  getKey
-  ());
-  getAllAppLogs
-  (
-  10021
-  );
+  getAllAppLogs(ApplicationCategoryEnum.global.getKey());
+  getAllAppLogs(10021);
+
   // 错误调用
-  getAllAppLogs
-  (
-  0
-  );
+  getAllAppLogs(0);
   ```
 
 目前的模块定义如下
@@ -745,28 +637,16 @@ seeyon-apps-meeting
 * 文档在Interface中编写，Impl不需重复。
 * 需写清楚场景
 
-```
+```java
 /**
-   * 
-<
-pre
->
-
+   * <pre>
    * 得到我能访问的组
    * 正常情况：
    * 1、普通用户包括（前提是这个单位下的组）:
    * 1.1 我建的私有组
    * 1.2 我是成员或关联人员系统组
    * 1.3 公开范围有我的系统组(单位、集团、项目)
-   * 
-<
-del
->
-1.4 我是部门管理员的部门系统组
-<
-/del
->
-
+   * <del>1.4 我是部门管理员的部门系统组</del>
    *
    * 2、单位管理员：
    * 2.1 这个单位所有的单位系统组（不包括部门组）
@@ -775,23 +655,11 @@ del
    * 3、集团、审计、系统管理员管理员
    * 3.1 所有的集团系统组
    * 3.2 这个单位的系统组
-   * 
-<
-del
->
-2. 公开范围有我的系统组
-<
-/del
->
-
+   * <del>2. 公开范围有我的系统组</del>
    *
    * 4.其它:
    * 4.1 看到集团组的前提是单位在集团树下
-   * 
-<
-/pre
->
-
+   * </pre>
    *
    *
    * @param memberId 人员id
@@ -799,28 +667,14 @@ del
    * @return 组实体列表
    * @throws BusinessException
    */
-List
-<
-V3xOrgTeam
->
-getTeamsByMember
-(
-Long
-memberId
-,
-Long
-accountId
-)
-throws
-BusinessException
-;
+    List<V3xOrgTeam> getTeamsByMember(Long memberId, Long accountId) throws BusinessException;
 ```
 
 * PO的文档统一写在setter方法上，getter不用赘述。
 * 善用@link
 
-```
-/**
+```java
+  /**
    * 按Id取岗位。 如果id为空或-1，则返回未分配岗位（id为{@link com.seeyon..organization.domain.OrgEntity#DEFAULT_NULL_ID 空}）。
    * 
    * @param id
@@ -828,111 +682,64 @@ BusinessException
    * @return 岗位实体
    * @throws BusinessException
    */
-V3xOrgPost
-getPostById
-(
-Long
-id
-)
-throws
-BusinessException
-;
+  V3xOrgPost getPostById(Long id) throws BusinessException;
 ```
 
 * 参数和返回值要写清楚各种取值的含义
 
-```
-/**
+```java
+  /**
    * 获取岗位下的人员，支持标准岗
-   * 
-<
-pre
->
-
+   * <pre>
    * /--- PostId --|-- accountId --|--------------- 返回值 ------------/
    * |   标准岗    |   null/集团ID |   全集团所有单位引用自建岗下的人员  |
    * |   标准岗    |   单位ID      |   指定单位引用自建岗下的人员        |
    * |   单位自建岗|   此参数被忽略|   指定单位引用自建岗下的人员        |
-   * 
-<
-/pre
->
-
+   * </pre>
    * 
    * @param postId
    * @param accountId
    * @return
    * @throws BusinessException
    */
-public
-List
-<
-V3xOrgMember
->
-getMembersByPost
-(
-Long
-postId
-,
-Long
-accountId
-)
-throws
-BusinessException
-;
+  public List<V3xOrgMember> getMembersByPost(Long postId, Long accountId) throws BusinessException;
 ```
 
 * 后续追加的接口和方法要写清楚支持的版本
 
-```
-@since
-5.0
-Sp2
-@since
-5.1
-Sp1
-m201411
+```java
+@since 5.0Sp2
+
+@since 5.1Sp1 m201411
 ```
 
 * 支持并强烈建议使用Markdown语法书写javadoc
 
-      /**
-         * 获取岗位下的人员，支持集团基准岗，限制单位可见范围
-         * 
-         * - 首先
-         * - 其次
-         * 
-         * ```java
-         *     // 示例代码
-         *     OrgManager orgManager;
-         *     orgManager.getMembersByPost4Access();
-         * ```
-         * 
-         * | PostId                  | accountId     | 返回值                              |
-         * |-------------------------|---------------|-------------------------------------|
-         * |   标准岗                |   null/集团ID |   全集团所有单位引用自建岗下的人员  |
-         * |   标准岗                |   单位ID      |   指定单位引用自建岗下的人员        |
-         * |   单位自建岗            |   此参数被忽略|   指定单位引用自建岗下的人员        |
-         * @param postId 岗位id
-         * @param accountId 当前登录者的当前登录单位id
-         * @return
-         * @throws BusinessException
-         */
-      List
-      <
-      V3xOrgMember
-      >
-      getMembersByPost4Access
-      (
-      Long
-      postId
-      ,
-      Long
-      accountId
-      )
-      throws
-      BusinessException
-      ;
+  ```java
+    /**
+     * 获取岗位下的人员，支持集团基准岗，限制单位可见范围
+     * 
+     * - 首先
+     * - 其次
+     * 
+     * ```java
+     *     // 示例代码
+     *     OrgManager orgManager;
+     *     orgManager.getMembersByPost4Access();
+     * ```
+     * 
+     * | PostId                  | accountId     | 返回值                              |
+     * |-------------------------|---------------|-------------------------------------|
+     * |   标准岗                |   null/集团ID |   全集团所有单位引用自建岗下的人员  |
+     * |   标准岗                |   单位ID      |   指定单位引用自建岗下的人员        |
+     * |   单位自建岗            |   此参数被忽略|   指定单位引用自建岗下的人员        |
+     * @param postId 岗位id
+     * @param accountId 当前登录者的当前登录单位id
+     * @return
+     * @throws BusinessException
+     */
+    List<V3xOrgMember> getMembersByPost4Access(Long postId, Long accountId) throws BusinessException;
+  ```
 
 * 使用中文标点符号。
 
