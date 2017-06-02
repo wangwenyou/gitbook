@@ -16,7 +16,7 @@
 
 插件基础配置文件位于“cfgHome/plugin/插件id”目录下，文件名必须为pluginCfg.xml，例子如下：
 
-```
+``` xml
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
     <id>samples</id>                                   
@@ -34,7 +34,7 @@
 
 系统启动时可以进行插件的启动和系统停止时的销毁操作，需继承自com.seeyon.ctp.common.AbstractSystemInitializer，并在spring中注册即可，例子代码如下
 
-```
+``` java
 import com.seeyon.ctp.common.AbstractSystemInitializer;
 
 public class SamplesInitializer extends AbstractSystemInitializer {
@@ -50,7 +50,7 @@ public class SamplesInitializer extends AbstractSystemInitializer {
 
 Spring注册例子如下（插件相关spring配置文件命名规则为spring-插件id-plugin.xml）：
 
-```
+``` xml
 <bean name="samples_systemInitializer" class="com.seeyon.apps.samples.SamplesInitializer">
   <property name="sortOrder">
     <value>7</value>
@@ -69,7 +69,7 @@ Spring注册例子如下（插件相关spring配置文件命名规则为spring-�
 
 插件自定义配置文件位于“cfgHome/plugin/插件id”目录下，文件名必须为pluginProperties.xml，例子如下：
 
-```
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <ctpConfig>
     <samples>
