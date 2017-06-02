@@ -11,7 +11,8 @@
   * [产品安装部署](ctp/deployment.md)
   * [开发准备](ctp/envirment.md)
     * [Maven](ctp/envirment/maven.md)
-    * [插件](chapter1/cha-jian.md)
+    * [插件化](chapter1/cha-jian.md)
+    * 国际化
   * [接口概述](ctp/summary.md)
     * [开发框架](ctp/summary/kai-fa-kuang-jia.md)
   * [SDK](ctp/sdk.md)
