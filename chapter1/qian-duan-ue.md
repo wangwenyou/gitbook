@@ -105,7 +105,7 @@ camel命名风格
 
 ## 编码规范
 
-### 4.1.1. 文件
+### 4.1.1. 文件
 
 JavaScript 程序应独立保存在后缀名为 .js 的文件中。
 
@@ -115,7 +115,7 @@ JavaScript 程序应独立保存在后缀名为 .js 的文件中。
 
 页面js放到WebContent/apps/{module}下，建立与jsp同名的js文件，如WebContent/apps/collaboration/listPending.js。
 
-### 4.1.2. 命名
+### 4.1.2. 命名
 
 命名总的原则为：骆驼、自然语言、英文
 
@@ -135,15 +135,15 @@ JavaScript 程序应独立保存在后缀名为 .js 的文件中。
 
    除了构造方法可以使用大写，首字母必须小写。
 
-### 4.1.3. 行长度
+### 4.1.3. 行长度
 
 避免每行超过 120 个字符。当一条语句一行写不下时，请考虑折行。
 
-### 4.1.4. 缩进
+### 4.1.4. 缩进
 
 缩进的单位为四个空格，避免使用 Tab 键来缩进。
 
-### 4.1.5. 注释
+### 4.1.5. 注释
 
 使用jsdoc语法书写注释。例如：
 
@@ -153,21 +153,12 @@ JavaScript 程序应独立保存在后缀名为 .js 的文件中。
  * @param {String} key 资源的key。
  * @return {String} 国际化资源文本。
  */
-
-CTP.
-prototype
-.getMessage = 
-function
-(key){
+CTP.prototype.getMessage = function(key){
     ...
 }
-
 ```
 
 jsdoc常用关键字参见附录。
-
-  
-
 
 | ![](http://10.3.4.240:8080/userContent/ctp_pub/docs/resources/admonitions/tip.png "\[Tip\]") | Tip |
 | :--- | :--- |
