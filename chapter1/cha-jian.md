@@ -24,11 +24,11 @@
     <category>10000</category>
 </plugin>
 ```
-
-| [![1](images/callouts/1.png)](#framework_plugin1_1)id | 插件id， |
+| TAG| 备注 |
 | --- | --- |
-| [![2](images/callouts/2.png)](#framework_plugin1_2)name | 插件名称 |
-| [![3](images/callouts/3.png)](#framework_plugin1_3)category | 插件类别，产品插件分类从10000至19999，客开插件从20000开始 |
+| id | 插件id， |
+| name | 插件名称 |
+| category | 插件类别，产品插件分类从10000至19999，客开插件从20000开始 |
 
 ### 插件启动初始化
 
