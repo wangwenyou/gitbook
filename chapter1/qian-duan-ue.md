@@ -30,14 +30,9 @@ jsp文件放到各Project的WebContent/WEB-INF/jsp/apps/{module}下。
 
 如
 
-
-
-**Example 3.1. **
+**Example 3.1. **
 
 `f1_collaboation/WebContent/WEB-INF/jsp/apps/collaboration/listPending.jsp`。
-
-  
-
 
 ## 命名
 
@@ -77,37 +72,15 @@ camel命名风格
 
 规范的书写示例如下：
 
-```
-<
-html
->
-<
-head
->
-<
-/head
->
-<
-body
->
-<
-div
-id
-=
-"panel"
-class
-=
-"panel"
->
-<
-/div
->
-<
-/body
->
-<
-/html
->
+```html
+<html>
+    <head>
+    </head>
+    <body>
+        <div id="panel"  class="panel">
+        </div>
+    </body>
+</html>
 ```
 
 ## JSTL & EL
@@ -127,6 +100,109 @@ class
 3. c:forEach & c:if
 
 4. fmt:message
+
+## Javascript开发规范
+
+## 编码规范
+
+### 4.1.1. 文件
+
+JavaScript 程序应独立保存在后缀名为 .js 的文件中。
+
+原则上，JavaScript 代码不应该被包含在 HTML 文件中。在 HTML 中的JavaScript代码会明显增加文件大小，而且也不能对其进行缓存和压缩。
+
+模块的公开js，放到common/js/apps/{module}下，名称为模块名称，如common/js/apps/collaboration/collaboration\_pub.js；发布时将被合并到主js文件。
+
+页面js放到WebContent/apps/{module}下，建立与jsp同名的js文件，如WebContent/apps/collaboration/listPending.js。
+
+### 4.1.2. 命名
+
+命名总的原则为：骆驼、自然语言、英文
+
+1. 名称只能包含下面的字符：26个大小写字符 \(A .. Z， a .. z\), 数字\(0 .. 9\)，和 下划线 \(\_\)。不允许使用中文或特殊字符。首字母下划线只能用于私有方法和全局变量。
+
+2. 变量名称必须为小写字母，请使用英文名词，如department ;。对象的属性或方法名采用小驼峰式\(lower camel-case\)，如”init”, “bindEvent”, “updatePosition”：
+
+3. 类的命名使用骆驼命名规则，例如：Account, EventHandler
+
+4. 常量必须在对象（类）或者枚举变量的前部声明。枚举变量的命名必须要有实际的意义，并且其成员 必须 使用骆驼命名规则或使用大写：
+
+5. 不允许使用单词简写 。私有变量名用下划线开头。如：”\_current”, “\_defaultConfig”
+
+6. 不能使用大写名称作为变量名。常量名全部大写，单词间用下划线分隔。如：”CSS\_BTN\_CLOSE”, “TXT\_LOADING”
+
+7. 方法和函数名应该以动词开始如getName\(\)，返回bool类型的函数应该以is开始，例如isEnable\(\)；不必担心长度，因为后期发布时会压缩。
+
+   除了构造方法可以使用大写，首字母必须小写。
+
+### 4.1.3. 行长度
+
+避免每行超过 120 个字符。当一条语句一行写不下时，请考虑折行。
+
+### 4.1.4. 缩进
+
+缩进的单位为四个空格，避免使用 Tab 键来缩进。
+
+### 4.1.5. 注释
+
+使用jsdoc语法书写注释。例如：
+
+```js
+/**
+ * 取得指定key的国际化资源。
+ * @param {String} key 资源的key。
+ * @return {String} 国际化资源文本。
+ */
+
+CTP.
+prototype
+.getMessage = 
+function
+(key){
+    ...
+}
+
+```
+
+jsdoc常用关键字参见附录。
+
+  
+
+
+| ![](http://10.3.4.240:8080/userContent/ctp_pub/docs/resources/admonitions/tip.png "\[Tip\]") | Tip |
+| :--- | :--- |
+|  | 不要吝啬注释。给以后需要理解你的代码的人们（或许就是你自己）留下信息是非常有用的。注释应该和它们所注释的代码一样是书写良好且清晰明了。偶尔的小幽默就更不错了。记得要避免冗长或者情绪化。 及时地更新注释也很重要。错误的注释会让程序更加难以阅读和理解。 |
+
+### 代码风格
+
+遵循[C++风格](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml#Formatting)，参照下面的示例：
+
+```js
+/**
+ * 取得指定key的国际化资源。
+ * @param {String} key 资源的key。
+ * @return {String} 国际化资源文本。
+ */
+CTP.prototype.getMessage = function( key ){
+    try{
+        var msg= eval( '' + key );
+        if( msg && arguments.length > 1 ){
+        for( var i = 0; i < arguments.length - 1; i++ ) {
+                var regEx = eval('messageRegEx_' + i);
+                var repMe = '' + arguments[i + 1];
+                if( repMe.indexOf( '$_' ) !== -1 ){
+                    repMe = repMe.replace('$_', '$$_');
+                }
+                msg = msg.replace( regEx, repMe );
+            }
+        }
+        return msg;
+    }
+    catch(e){
+    }
+    return "";
+}
+```
 
 
 
