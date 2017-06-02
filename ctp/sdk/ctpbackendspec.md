@@ -568,9 +568,7 @@ apps-xxx/                                    http://10.3.4.218:6666/svn/v5/apps-
 ```
 
 解耦后工程代码结构如下
-
-[![](http://open.seeyon.com:4567/tmp/c6c3f4f1ff66aa10e46010d8d3dc62973b30401e.png "Graphviz image")](http://open.seeyon.com:4567/tmp/c6c3f4f1ff66aa10e46010d8d3dc62973b30401e.png)
-
+![](/assets/decoupling01.png)
 ##### 版本管理
 
 jar的命名规则为

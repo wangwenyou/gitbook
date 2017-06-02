@@ -14,7 +14,7 @@ xxx为应用名如collaboration、edoc ...
 
 示例：
 
-```
+```java
 // CTP平台表单模块
 package
  com.seeyon.ctp.form;
@@ -34,7 +34,7 @@ Class名首字母必须大写，如果是某个Interface的实现，要求命名
 
 示例：
 
-```
+```java
 public
 interface
  CollaborationManager{};
@@ -55,10 +55,8 @@ Interface命名首字母必须大写
 
 示例：
 
-```
-public
-interface
- CollaborationManager{
+```java
+public interface CollaborationManager{
 }
 ```
 
