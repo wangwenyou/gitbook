@@ -210,68 +210,26 @@ public
 
 所有的接口方法**必须抛出异常**，异常类型为BusinessException
 
-```
-void
-run
-(
-)
-throws
-BusinessException
-;
+```java
+void run() throws BusinessException;
 ```
 
 **示例：**
 
-```
-import
-com.seeyon.apps.news.api.NewsApi
-;
-import
-com.seeyon.apps.news.api.NewsParam
-;
+```java
+import com.seeyon.apps.news.api.NewsApi;
+import com.seeyon.apps.news.api.NewsParam;
 ...
-NewsApi
-api
-;
-long
-id
-;
-api
-.
-get
-(
-id
-);
-api
-.
-get
-(
-new
-NewsParam
-(
-newsType
-,
-pageNum
-,
-pageSize
-));
+NewsApi api;
+long id;
+api.get(id);
+api.get(new NewsParam(newsType,pageNum,pageSize));
 ```
 
-bean定义放在具体模块的工程，如
+bean定义放在具体模块的工程，如`spring-news-api.xml`：
 
-`spring-news-api.xml`
-
-：
-
-```
-<
-bean
-name=
-"newsApi"
-class=
-"com.seeyon.apps.news.api.NewsApiImpl"
-/
->
+```xml
+<bean name="newsApi" class="com.seeyon.apps.news.api.NewsApiImpl"/>
 ```
 
 ##### 方法命名
@@ -430,10 +388,11 @@ class
 
 * 0-10000为内部模块预留编号，外部扩展应用不允许使用。
 
-* 方法定义和调用方式如下，注意，参数必须为
-  **int**
-  ，参数名称必须为
+* 方法定义和调用方式如下，注意，参数必须为  
+  **int**  
+  ，参数名称必须为  
   **category**
+
   ```
   // 正确定义
   List
