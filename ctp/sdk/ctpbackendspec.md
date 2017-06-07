@@ -1,7 +1,5 @@
 ## 1.1. 体系图
-
-![](http://10.3.4.240:8080/userContent/ctp_pub/docs/resources/images/MVC.jpg)
-
+![](/assets/mvc.png)
 ## 1.2. 开发规范
 
 1. 明确MVC各层职责，不能错误使用。

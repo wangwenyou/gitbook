@@ -315,14 +315,14 @@ message必须填写,且内容恰当
 ```java
       // 错误
 public V3xOrgMember getMemberByLoginName(
-		@QueryParam("loginName") String loginName) throws Exception {
-	return getOrgManager().getMemberByLoginName(decode(loginName));
+        @QueryParam("loginName") String loginName) throws Exception {
+    return getOrgManager().getMemberByLoginName(decode(loginName));
 }
 
       // 正确
 public Response getMemberByLoginName(
-		@QueryParam("loginName") String loginName) throws Exception {
-	return ok(getOrgManager().getMemberByLoginName(decode(loginName)));
+        @QueryParam("loginName") String loginName) throws Exception {
+    return ok(getOrgManager().getMemberByLoginName(decode(loginName)));
 }
 ```
 
